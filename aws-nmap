@@ -1,0 +1,14 @@
+#!/bin/sh
+
+NMAP_ARGS="$@"
+
+echo "Running in Lambda: nmap $NMAP_ARGS"
+
+
+aws lambda invoke \
+    --function-name aws-nmap /tmp/out \
+    --log-type Tail \
+    --query LogResult \
+    --payload "{\"args\": \"$NMAP_ARGS\"}" \
+    --output text | base64 -d|grep -vE "XRAY|REPORT|END|START"
+rm /tmp/out
