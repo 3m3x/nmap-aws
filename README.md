@@ -105,3 +105,7 @@ compiled nmap binary and call it a day.
 To compile nmap statically the easiest route is to follow the instructions at https://github.com/andrew-d/static-binaries.git . I omitted including OpenSSL because compilation failed when including it and I just wanted to get a PoC going. The repeated failures to load .nse upon running nmap may very well [be explained](https://subscription.packtpub.com/book/networking_and_servers/9781849517485/1/ch01lvl1sec10/compiling-nmap-from-source-code) by the lack of OpenSSL support:
 
 > Enabling it allows Nmap to access the functions of this library related to multiprecision integers, hashing, and encoding/decoding for service detection and Nmap NSE scripts.
+
+# TODO
+- [ ] Get OpenSSL into the build
+- [ ] Store logs in scan-specific (e.g. time-stamped) bucket for neater archival and simple retrieval
