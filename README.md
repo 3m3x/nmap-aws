@@ -1,4 +1,11 @@
-# Intro
+# Get it goin
+You'll need an AWS account to launch the Lambda (and it's accompanying role and policy) into.
+
+```bash
+$ ./deploy.sh
+```
+
+# Wut it do
 Example:
 
 **$ ./aws-nmap -v -A --top-port 100 -Pn webscantest.com**
