@@ -1,3 +1,8 @@
+# Why?
+* Learn Lambda development (the horror, the horror!)
+* Add a neat red-teaming tool to the kit
+* Keep all those scan results stored somewhere safe and sane
+
 # Get it goin
 You'll need an AWS account to launch the Lambda (and it's accompanying role and policy) into.
 
@@ -6,8 +11,6 @@ $ ./deploy.sh
 ```
 
 # Wut it do
-Example:
-
 **$ ./aws-nmap -v -A --top-port 100 -Pn webscantest.com**
 ```bash
 Running in Lambda: nmap -v -A --top-port 100 -Pn webscantest.com
@@ -80,6 +83,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 16.06 seconds
 ```
 
+Jump over to [your logs in CloudWatch](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/aws/lambda/aws-nmap) at a later time to see your persisted output :thumbsup:
 
 # Runtime
 Nmap depends on a number of libraries not found in the Python Lambda runtime:
