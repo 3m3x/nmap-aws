@@ -1,7 +1,8 @@
 # Intro
 Example:
+
+**$ ./aws-nmap -v -A --top-port 100 -Pn webscantest.com**
 ```bash
- $ ./aws-nmap -v -A --top-port 100 -Pn webscantest.com
 Running in Lambda: nmap -v -A --top-port 100 -Pn webscantest.com
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2019-09-18 08:00 UTC
@@ -85,12 +86,11 @@ error while loading shared libraries: liblua5.3.so.0: cannot open shared object 
 /lib64/libc.so.6: version `GLIBC_2.25' not found (required by /var/task/lib/libcrypto.so.1.1)
 ```
 
-All but the last are able to be successfully uploaded. We can't use custom AMIs
-for our lambda to get that libc `.so` file in there so we just upload a statically
+Unfortunately, all but the last were able to be successfully loaded in the Lambda runtime. We can't use custom AMIs
+for our lambda to get that pesky libc `.so` file into `/lib64` (the filesystem is read-only) so we just upload a statically
 compiled nmap binary and call it a day. 
 
 ## Static nmap
-To compile nmap statically the easiest route is to follow the instructions at https://github.com/andrew-d/static-binaries.git . I omitted including OpenSSL because compilation failed when including it. Oh well.
+To compile nmap statically the easiest route is to follow the instructions at https://github.com/andrew-d/static-binaries.git . I omitted including OpenSSL because compilation failed when including it and I just wanted to get a PoC going. The repeated failures to load .nse upon running nmap may very well [be explained](https://subscription.packtpub.com/book/networking_and_servers/9781849517485/1/ch01lvl1sec10/compiling-nmap-from-source-code) by the lack of OpenSSL support:
 
-Also include the runtime files required by nmap in the root directory. This repo
-contains the files for version 7.60
+> Enabling it allows Nmap to access the functions of this library related to multiprecision integers, hashing, and encoding/decoding for service detection and Nmap NSE scripts.
